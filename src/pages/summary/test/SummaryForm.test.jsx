@@ -1,5 +1,6 @@
-import { screen, render, fireEvent } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import SummaryForm from '../SummaryForm';
+import userEvent from '@testing-library/user-event';
 
 describe('summary form testing', () => {
   it('verify checkbox to be unchecked initially', () => {
@@ -23,10 +24,30 @@ describe('summary form testing', () => {
 
     const button = screen.getByRole('button', { name: /confirm order/i });
 
-    fireEvent.click(checkbox);
+    userEvent.click(checkbox);
     expect(button).toBeEnabled();
-    
-    fireEvent.click(checkbox);
+
+    userEvent.click(checkbox);
     expect(button).toBeDisabled();
+  });
+
+  /**
+   * Useful commands to use ByQueryType:
+   *    - get: expect element to be in DOM
+   *    - query: expect element not to be in DOM
+   *    - find: expect element to appear async
+   * QueryTypes:
+   *    - Role [most preferred]
+   *    - AltText [images]
+   *    - Text [display elements]
+   *    Form elements:
+   *        - PlaceholderText
+   *        - LabelText
+   *        - DisplayValue
+   */
+
+  test('popover responds to hover', () => {
+    render(<SummaryForm />);
+
   });
 });
